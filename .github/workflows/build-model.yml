@@ -5,7 +5,7 @@ permissions:
   contents: write
 
 jobs:
-  Preprocess-Data:
+  Build-Model:
     runs-on: ubuntu-latest
     env: 
       MLFLOW_TRACKING_URI: http://localhost:5000
