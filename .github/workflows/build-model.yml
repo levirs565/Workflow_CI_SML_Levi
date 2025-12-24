@@ -47,7 +47,7 @@ jobs:
         run: |
           echo "Run ID: ${{ steps.training.outputs.mlflow_run_id }}"
       - name: Download Model
-        run: poetry mlflow artifacts download -r ${{ steps.training.outputs.mlflow_run_id }} -d model
+        run: poetry run mlflow artifacts download -r ${{ steps.training.outputs.mlflow_run_id }} -d model
         env:
           MLFLOW_TRACKING_USERNAME: ${{ vars.DAGSHUB_USERNAME }}
           MLFLOW_TRACKING_PASSWORD: ${{ secrets.DAGSHUB_TOKEN }}
