@@ -50,7 +50,7 @@ jobs:
           files: model.zip
       - name: Build Docker Image using MLflow
         run: |
-          mlflow models build-docker \
+          poetry run mlflow models build-docker \
             -m model \
             -n "${{ vars.DOCKER_IMAGE }}:v${{ github.run_number }}" \
             --enable-mlserver
