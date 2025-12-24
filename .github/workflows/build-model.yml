@@ -58,7 +58,7 @@ jobs:
           poetry run mlflow models build-docker \
             -m model \
             -n "${{ vars.DOCKER_IMAGE }}:v${{ github.run_number }}" \
-            --install-java FALSE
+            --install-java False
       - name: Tag Image as Latest
         run: |
           docker tag "${{ vars.DOCKER_IMAGE }}:v${{ github.run_number }}" "${{ vars.DOCKER_IMAGE }}:latest"
