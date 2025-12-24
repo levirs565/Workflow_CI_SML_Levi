@@ -48,3 +48,21 @@ jobs:
             Run ID: ${{ steps.training.outputs.mlflow_run_id }}
           name: v${{ github.run_number }}
           files: model.zip
+      - name: Build Docker Image using MLflow
+        run: |
+          mlflow models build-docker \
+            -m model \
+            -n "${{ vars.DOCKER_IMAGE }}:v${{ github.run_number }}" \
+            --enable-mlserver
+      - name: Tag Image as Latest
+        run: |
+          docker tag "${{ vars.DOCKER_IMAGE }}:v${{ github.run_number }}" "${{ vars.DOCKER_IMAGE }}:latest"
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ vars.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Push Docker Image
+        run: |
+          docker push "${{ vars.DOCKER_IMAGE }}:v${{ github.run_number }}"
+          docker push "${{ vars.DOCKER_IMAGE }}:latest"
