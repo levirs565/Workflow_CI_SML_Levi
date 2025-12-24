@@ -33,7 +33,7 @@ jobs:
       # - name: Run Local MLFlow
       #   run: poetry run mlflow server --port 5000 &
       - name: Login to DagsHub
-        run: poetry dagshub login --token ${{ secrets.DAGSHUB_TOKEN }}
+        run: poetry run dagshub login --token ${{ secrets.DAGSHUB_TOKEN }}
       - name: Training
         id: training
         run: poetry run python ./MLProject/modelling.py
