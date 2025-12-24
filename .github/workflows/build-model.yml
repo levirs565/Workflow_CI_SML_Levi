@@ -39,7 +39,7 @@ jobs:
         run: poetry run mlflow run ./MLProject  --env-manager local
         env:
           MLFLOW_TRACKING_USERNAME: ${{ vars.DAGSHUB_USERNAME }}
-          MLFLOW_TRACKING_PASSWORD: ${{ vars.DAGSHUB_REPO }}
+          MLFLOW_TRACKING_PASSWORD: ${{ vars.DAGSHUB_TOKEN }}
           MLFLOW_TRACKING_URI: https://dagshub.com/${{ vars.DAGSHUB_USERNAME }}/${{ vars.DAGSHUB_REPO }}.mlflow
           DAGSHUB_USERNAME: ${{ vars.DAGSHUB_USERNAME }}
           DAGSHUB_REPO: ${{ vars.DAGSHUB_REPO }}
