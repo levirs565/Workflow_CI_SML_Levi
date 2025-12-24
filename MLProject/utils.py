@@ -14,8 +14,7 @@ if DAGSHUB_USERNAME is not None and DAGSHUB_REPO is not None:
     dagshub.init(repo_owner=DAGSHUB_USERNAME,
                  repo_name=DAGSHUB_REPO, mlflow=True)
 elif os.getenv("MLFLOW_TRACKING_URI") is None:
-    print("Please set either DAGSHUB_USERNAME and DAGSHUB_REPO or MLFLOW_TRACKING_URI")
-    exit(1)
+    mlflow.set_tracking_uri("http://localhost:5000")
 
 CURRENT_DIR = Path(__file__).resolve().parent
 PREPROCESSED_DIR = CURRENT_DIR / "weather_preprocessing"

@@ -36,7 +36,7 @@ jobs:
         run: poetry run dagshub login --token ${{ secrets.DAGSHUB_TOKEN }}
       - name: Training
         id: training
-        run: poetry run python ./MLProject/modelling.py
+        run: poetry run mlflow run ./MLProject/modelling.py
         env:
           DAGSHUB_USERNAME: ${{ vars.DAGSHUB_USERNAME }}
           DAGSHUB_REPO: ${{ vars.DAGSHUB_REPO }}
