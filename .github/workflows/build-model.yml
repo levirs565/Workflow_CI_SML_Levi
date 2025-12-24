@@ -65,7 +65,7 @@ jobs:
       - name: Build Docker Image using MLflow
         run: |
           poetry run mlflow models build-docker \
-            -m model \
+            -m model/model \
             -n "${{ vars.DOCKER_IMAGE }}:v${{ github.run_number }}" \
             --install-java False
       - name: Tag Image as Latest
