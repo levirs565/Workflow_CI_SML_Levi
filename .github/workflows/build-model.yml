@@ -7,8 +7,8 @@ permissions:
 jobs:
   Build-Model:
     runs-on: ubuntu-latest
-    env: 
-      MLFLOW_TRACKING_URI: http://localhost:5000
+    # env: 
+    #   MLFLOW_TRACKING_URI: http://localhost:5000
 
     steps:
       - uses: actions/checkout@v6
@@ -30,11 +30,16 @@ jobs:
           key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
       - name: Install dependencies
         run: poetry install --no-interaction --no-root
-      - name: Run Local MLFlow
-        run: poetry run mlflow server --port 5000 &
+      # - name: Run Local MLFlow
+      #   run: poetry run mlflow server --port 5000 &
+      - name: Login to DagsHub
+        run: poetry dagshub login ${{ secrets.DAGSHUB_TOKEN }}
       - name: Training
         id: training
         run: poetry run python ./MLProject/modelling.py
+        env:
+          DAGSHUB_USERNAME: ${{ vars.DAGSHUB_USERNAME }}
+          DAGSHUB_REPO: ${{ vars.DAGSHUB_REPO }}
       - name: Print Run ID
         run: |
           echo "Run ID: ${{ steps.training.outputs.mlflow_run_id }}"
